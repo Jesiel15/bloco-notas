@@ -1,0 +1,90 @@
+// import EditNote from '../pages/EditNote'
+// import NewNote from '../pages/NewNote'
+
+import React, { useState, useContext } from 'react';
+import { View, TextInput, Button } from 'react-native';
+import { Card } from 'react-native-elements';
+
+import NotesContext from '../context/NotesContext';
+
+export default function FormNote({ route, navigation }) {
+  const [note, setNote] = useState(route.params ? route.params : {})
+  const { dispatch } = useContext(NotesContext)
+
+  const TestNote = () => {
+    if (note.noteText || note.titleNoteText) {
+      return (
+        <Button
+          onPress={() => {
+            dispatch({
+              type: note.id ? 'updateNote' : 'createNote',
+              payload: note,
+            })
+            navigation.goBack()
+          }}
+          title="Salvar"
+        />
+      )
+    } else {
+      return (
+        <>
+        </>
+      )
+    }
+  }
+
+  return (
+    <View>
+      <Card >
+        <TextInput
+          style={{ height: '5%', borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={titleNoteText => setNote({ ...note, titleNoteText })}
+          placeholder='Titulo..'
+          value={note.titleNoteText}
+          multiline={true}
+        />
+        <Card.Divider />
+        <TextInput
+          style={{ height: '70%', borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={noteText => setNote({ ...note, noteText })}
+          placeholder='Anotação..'
+          value={note.noteText}
+          multiline={true}
+        />
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <TestNote></TestNote>
+          <Button
+            onPress={() => {
+              navigation.goBack()
+            }}
+            title="Cancelar" />
+        </View>
+      </Card>
+    </View>
+  );
+}
+
+
+
+function FormNotes(status) {
+    if (status.data === "Alive") {
+        return (
+        <View style={styles.statusAlive}>
+          <View ></View>
+        </View>
+      )
+    } else if (status.data === "Dead") {
+        return (
+          <View style={styles.statusDead}>
+          <View ></View>
+        </View>
+      )
+    } else {
+        return (
+          <View style={styles.statusUnknown}>
+          <View ></View>
+        </View>
+      )
+    }
+}
+export default ShowStatus;
