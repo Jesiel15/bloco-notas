@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './src/pages/Home';
 import NewNote from './src/pages/NewNote';
 import EditNote from './src/pages/EditNote';
+import NewHome from './src/pages/NewHome';
 import { Button } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NotesProvider } from './src/context/NotesContext';
-import IconFA from 'react-native-vector-icons/FontAwesome'
+import IconFA from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,15 @@ export default function App() {
     <NotesProvider>
       <NavigationContainer >
         <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="NewHome" component={NewHome}
+            options={{
+              title: 'NewHome',
+              headerStyle: {
+                backgroundColor: '#24282F',
+              },
+              headerTintColor: '#2f2',
+            }} />
+         
           <Stack.Screen name="Home" component={Home}
             options={({ navigation }) => {
               return {

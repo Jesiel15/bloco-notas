@@ -63,12 +63,11 @@ export default function Home({ navigation }) {
   }
   
   return (
+    //Para mostrar o do Async Storage e context API
       <FlatList
         keyExtractor={note => note.id.toString()}
         data={state.notes}
         renderItem={getNoteItem}
-        
-      />
-    
+      />    
   );
 }
